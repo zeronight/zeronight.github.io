@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["../types"],
+    "types": ["global-common", "global-web"],
+    "baseUrl": ".",
+    "paths": {
+      "types/*": ["../types/*"]
+    }
+  }
+}

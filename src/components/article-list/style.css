@@ -1,0 +1,21 @@
+.articleList_item {
+  display: block;
+  padding: 8px 0;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.articleList_title {
+  margin: 0;
+  font-weight: normal;
+  font-size: 1.25em;
+}
+
+.articleList_meta {
+  margin-top: 10px;
+  display: flex;
+  color: #666;
+}
+
+.articleList_tags {
+  flex: 1 1 0;
+}

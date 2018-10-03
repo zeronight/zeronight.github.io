@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "types": [
+      "node",
+      "jest",
+      "webpack-dev-server",
+      "global-common",
+      "global-node"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "types/*": ["./types/*"]
+    }
+  },
+  "include": [
+    "config",
+    "test"
+  ]
+}
