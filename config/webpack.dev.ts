@@ -5,6 +5,15 @@ import baseConfig from './webpack.base';
 const config: webpack.Configuration = merge(baseConfig, {
   mode: 'development',
 
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+
   devServer: {
     historyApiFallback: true,
   },

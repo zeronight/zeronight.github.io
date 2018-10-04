@@ -1,6 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import PrerenderSPAPlugin from 'prerender-spa-plugin';
 import baseConfig, { database, projectDir, distDir } from './webpack.base';
 import removeScriptTag from './util/removeScript';
@@ -16,7 +18,17 @@ const config: webpack.Configuration = merge(baseConfig, {
     publicPath: '/dist/',
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+    ],
+  },
+
   plugins: [
+    new MiniCssExtractPlugin(),
     new PrerenderSPAPlugin({
       staticDir: projectDir,
       indexPath: path.resolve(distDir, 'index.html'),
@@ -27,6 +39,10 @@ const config: webpack.Configuration = merge(baseConfig, {
       },
     }),
   ],
+
+  optimization: {
+    minimizer: [new OptimizeCSSAssetsPlugin()],
+  },
 });
 
 export default config;
