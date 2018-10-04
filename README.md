@@ -1,4 +1,5 @@
 # TODO
 
-1. SEO
-2. README
+- [ ] SEO
+- [ ] README
+- [ ] Image CDN
