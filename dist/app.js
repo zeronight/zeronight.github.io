@@ -17770,6 +17770,7 @@ var xtend = __webpack_require__(7);
 
 var React = __webpack_require__(1);
 
+var supportsStringRender = parseInt((React.version || '16').slice(0, 2), 10) >= 16;
 var createElement = React.createElement;
 module.exports = {
   break: 'br',
@@ -17802,7 +17803,7 @@ module.exports = {
 };
 
 function TextRenderer(props) {
-  return props.children;
+  return supportsStringRender ? props.children : createElement('span', null, props.children);
 }
 
 function Root(props) {
@@ -18411,7 +18412,7 @@ var _assign = __webpack_require__(38);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-exports.default = function (astGenerator, defaultStyle) {
+exports.default = function (defaultAstGenerator, defaultStyle) {
   return function SyntaxHighlighter(_ref6) {
     var language = _ref6.language,
         children = _ref6.children,
@@ -18439,7 +18440,34 @@ exports.default = function (astGenerator, defaultStyle) {
         CodeTag = _ref6$CodeTag === undefined ? 'code' : _ref6$CodeTag,
         _ref6$code = _ref6.code,
         code = _ref6$code === undefined ? Array.isArray(children) ? children[0] : children : _ref6$code,
-        rest = (0, _objectWithoutProperties3.default)(_ref6, ['language', 'children', 'style', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineProps', 'renderer', 'PreTag', 'CodeTag', 'code']);
+        astGenerator = _ref6.astGenerator,
+        rest = (0, _objectWithoutProperties3.default)(_ref6, ['language', 'children', 'style', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineProps', 'renderer', 'PreTag', 'CodeTag', 'code', 'astGenerator']);
+
+    astGenerator = astGenerator || defaultAstGenerator;
+
+    var lineNumbers = showLineNumbers ? _react2.default.createElement(LineNumbers, {
+      containerStyle: lineNumberContainerStyle,
+      codeStyle: codeTagProps.style || {},
+      numberStyle: lineNumberStyle,
+      startingLineNumber: startingLineNumber,
+      codeString: code
+    }) : null;
+
+    var defaultPreStyle = style.hljs || style['pre[class*=\"language-\"]'] || { backgroundColor: '#fff' };
+    var preProps = useInlineStyles ? (0, _assign2.default)({}, rest, { style: (0, _assign2.default)({}, defaultPreStyle, customStyle) }) : (0, _assign2.default)({}, rest, { className: 'hljs' });
+
+    if (!astGenerator) {
+      return _react2.default.createElement(
+        PreTag,
+        preProps,
+        lineNumbers,
+        _react2.default.createElement(
+          CodeTag,
+          codeTagProps,
+          code
+        )
+      );
+    }
 
     /* 
      * some custom renderers rely on individual row elements so we need to turn wrapLines on 
@@ -18452,16 +18480,9 @@ exports.default = function (astGenerator, defaultStyle) {
     if (codeTree.language === null) {
       codeTree.value = defaultCodeValue;
     }
-    var defaultPreStyle = style.hljs || style['pre[class*=\"language-\"]'] || { backgroundColor: '#fff' };
-    var preProps = useInlineStyles ? (0, _assign2.default)({}, rest, { style: (0, _assign2.default)({}, defaultPreStyle, customStyle) }) : (0, _assign2.default)({}, rest, { className: 'hljs' });
+
     var tree = wrapLines ? wrapLinesInSpan(codeTree, lineProps) : codeTree.value;
-    var lineNumbers = showLineNumbers ? _react2.default.createElement(LineNumbers, {
-      containerStyle: lineNumberContainerStyle,
-      codeStyle: codeTagProps.style || {},
-      numberStyle: lineNumberStyle,
-      startingLineNumber: startingLineNumber,
-      codeString: code
-    }) : null;
+
     return _react2.default.createElement(
       PreTag,
       preProps,
@@ -47289,7 +47310,7 @@ BrowserRouter_BrowserRouter.propTypes = {
 
 
 /* harmony default export */ var es_BrowserRouter = (BrowserRouter_BrowserRouter);
-// EXTERNAL MODULE: ../node_modules/react-router/node_modules/path-to-regexp/index.js
+// EXTERNAL MODULE: ../node_modules/path-to-regexp/index.js
 var path_to_regexp = __webpack_require__(99);
 var path_to_regexp_default = /*#__PURE__*/__webpack_require__.n(path_to_regexp);
 
