@@ -7,9 +7,7 @@ function removeScriptTag(html: string) {
 
   scriptNodes.forEach((s) => (s.parentNode as Node).removeChild(s));
 
-  const documentElement = dom.window.document.documentElement;
-
-  return documentElement ? documentElement.innerHTML : '';
+  return dom.serialize();
 }
 
 export default removeScriptTag;

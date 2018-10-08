@@ -1,6 +1,7 @@
 import removeScript from '../removeScript';
 
-const html = `
+const sourceHtml = `
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -19,6 +20,25 @@ const html = `
 </html>
 `;
 
+const expectHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Test</title>
+</head>
+<body>
+  <section id="app"></section>
+</body>
+</html>
+`;
+
+function minify(html: string): string {
+  return (html.match(/<[^>]+>/g) as string[]).join('');
+}
+
 it('should works', () => {
-  expect(/script/i.test(removeScript(html))).toBe(false);
+  expect(minify(removeScript(sourceHtml))).toBe(minify(expectHtml));
 });
