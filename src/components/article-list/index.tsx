@@ -1,12 +1,12 @@
 import React, { StatelessComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import Database from 'types/database';
+import { ArticleBase } from 'types/database';
 
 import './style.css';
 
 interface ArticleListProps {
-  articles: Database.ArticleBase[];
+  articles: ArticleBase[];
 }
 
 const ArticleList: StatelessComponent<ArticleListProps> = ({ articles }) => {

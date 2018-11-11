@@ -1,5 +1,5 @@
 declare namespace process {
   namespace env {
-    const database: {};
+    const NODE_ENV: 'development' | 'production';
   }
 }

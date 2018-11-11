@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import DataBase from 'types/database';
+import { Article } from 'types/database';
 
 interface Meta {
   title: string;
@@ -8,7 +8,7 @@ interface Meta {
   tags: string[];
 }
 
-function getArticle(dir: string): DataBase.Article {
+function getArticle(dir: string): Article {
   const metaFilePath = path.resolve(dir, 'meta.json');
   const contentFilePath = path.resolve(dir, 'content.md');
   const meta = fs.readFileSync(metaFilePath, 'utf-8');
@@ -24,7 +24,7 @@ function getArticle(dir: string): DataBase.Article {
   };
 }
 
-function getArticles(markdownDir: string): DataBase.Article[] {
+function getArticles(markdownDir: string): Article[] {
   return (
     fs.readdirSync(markdownDir)
       .map((name) => path.resolve(markdownDir, name))

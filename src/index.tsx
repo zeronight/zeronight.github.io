@@ -1,21 +1,20 @@
 import 'normalize.css';
 import './style.css';
 
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router , Route, Switch } from 'react-router-dom';
-import Home from './containers/home';
-import Article from './containers/article';
+import getRouter from './router';
 
-const content = (
-  <Router>
-    <Switch>
-      <Route exact={true} path="/" component={Home}/>
-      <Route path="/articles/:article" component={Article}/>
-    </Switch>
-  </Router>
-);
+async function main() {
+  const router = await getRouter(location.pathname);
+  const container = document.getElementById('app');
 
-const container = document.getElementById('app');
+  if (process.env.NODE_ENV === 'development') {
+    ReactDOM.render(router, container);
+  } else {
+    ReactDOM.hydrate(router, container);
+  }
 
-ReactDOM.render(content, container);
+  document.dispatchEvent(new Event('app-ready'));
+}
+
+main();

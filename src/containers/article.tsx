@@ -1,24 +1,68 @@
-import React, { StatelessComponent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import DataBase from 'types/database';
+import React, { PureComponent } from 'react';
+import { RouteComponentProps, match } from 'react-router-dom';
+import { Article as ArticleModel } from 'types/database';
 import Article from '../components/article';
-
-const data = process.env.database as DataBase;
-
+import fetchJson from '../lib/fetchJson';
 interface RouteParams {
   article: string;
 }
 
-const ArticleContainer: StatelessComponent<RouteComponentProps<RouteParams>> = ({ match }) => {
-  const { article: name } = match.params;
+interface State {
+  article: ArticleModel | null;
+}
 
-  const article = data.articleList.find((a) => a.route === name);
+let preLoadArticle: ArticleModel | null = null;
 
-  if (!article) {
-    return null;
+const fetchArticle = (name: string) => fetchJson(`/api/article/${name}`) as Promise<ArticleModel>;
+
+export const preLoadData = async (x: match<RouteParams>) => {
+  preLoadArticle = await fetchArticle(x.params.article);
+};
+
+class ArticleContainer extends PureComponent<RouteComponentProps<RouteParams>, State> {
+  constructor(props: RouteComponentProps<RouteParams>) {
+    super(props);
+
+    const { match: { params: { article } } } = props;
+
+    const hasPreLoad = preLoadArticle && preLoadArticle.route === article;
+
+    this.state = {
+      article: hasPreLoad ? preLoadArticle : null,
+    };
   }
 
-  return <Article article={article}/>;
-};
+  public componentDidMount() {
+    if (this.state.article === null) {
+      this.fetchArticle();
+    }
+  }
+
+  public componentDidUpdate(preProps: RouteComponentProps<RouteParams>) {
+    const { article } = this.props.match.params;
+
+    if (article !== preProps.match.params.article) {
+      this.fetchArticle();
+    }
+  }
+
+  public render() {
+    const { article } = this.state;
+
+    if (!article) {
+      return null;
+    }
+
+    return <Article article={article}/>;
+  }
+
+  private async fetchArticle() {
+    const { match: { params: { article: name } } } = this.props;
+
+    const article = await fetchArticle(name);
+
+    this.setState({ article });
+  }
+}
 
 export default ArticleContainer;

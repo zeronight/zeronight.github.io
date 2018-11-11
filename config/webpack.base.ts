@@ -1,17 +1,12 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import Database from 'types/database';
-import getArticles from './util/getArticles';
 
 export const projectDir = path.resolve(__dirname, '..');
 export const articlesDir = path.resolve(projectDir, 'markdown');
+export const apiDir = path.resolve(projectDir, 'api');
 export const sourceDir = path.resolve(projectDir, 'src');
 export const distDir = path.resolve(projectDir, 'dist');
-
-export const database: Database = {
-  articleList: getArticles(articlesDir),
-};
 
 const config: webpack.Configuration = {
   devtool: false,
@@ -25,6 +20,7 @@ const config: webpack.Configuration = {
   output: {
     path: distDir,
     publicPath: '/',
+    filename: 'js/[name].js',
   },
 
   module: {
@@ -46,13 +42,17 @@ const config: webpack.Configuration = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.database': JSON.stringify(database),
-    }),
     new HtmlWebpackPlugin({
       template: 'template.html',
     }),
   ],
+
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
 
 export default config;

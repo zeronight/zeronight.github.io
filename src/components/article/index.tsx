@@ -2,14 +2,14 @@
 import React, { StatelessComponent } from 'react';
 import Markdown from 'react-markdown';
 import { format } from 'date-fns';
-import Database from 'types/database';
+import { Article } from 'types/database';
 import CodeBlock from '../code-block';
 
 import './style.css';
 import 'github-markdown-css';
 
 interface ArticleProps {
-  article: Database.Article;
+  article: Article;
 }
 
 const ArticleList: StatelessComponent<ArticleProps> = ({ article }) => {
