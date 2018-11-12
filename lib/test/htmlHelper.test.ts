@@ -1,4 +1,4 @@
-import { removeScriptTag, moveScriptTagToBody } from '../htmlHelper';
+import { removeScriptTag, moveScriptTagToBody, setScriptAttributes } from '../htmlHelper';
 
 const sourceHtml = `
 <!DOCTYPE html>
@@ -75,4 +75,23 @@ it('removeScriptTag should works', () => {
 
 it('moveScriptTagToBody should works', () => {
   expect(minify(moveScriptTagToBody(sourceHtml))).toBe(minify(expectScriptInbody));
+});
+
+it('setScriptAttributes should works', () => {
+  const script = `<script src="/path/to/script"></script>`;
+  const inlineScript = `<script>console.log('ok')</script>`;
+
+  const moduleScript = setScriptAttributes(script, { type: 'module' });
+  const asyncScript = setScriptAttributes(script, { async: true });
+  const deferScript = setScriptAttributes(script, { defer: true });
+  const noModuleScript = setScriptAttributes(inlineScript, { type: 'module' });
+  const noAsyncScript = setScriptAttributes(inlineScript, { async: true });
+  const noDeferScript = setScriptAttributes(inlineScript, { defer: true });
+
+  expect(moduleScript).toMatch(/type="module"/i);
+  expect(asyncScript).toMatch(/async(?=(>|\s|=""))/i);
+  expect(deferScript).toMatch(/defer(?=(>|\s|=""))/i);
+  expect(noModuleScript).not.toMatch(/type="module"/i);
+  expect(noAsyncScript).not.toMatch(/async(?=(>|\s|=""))/i);
+  expect(noDeferScript).not.toMatch(/defer(?=(>|\s|=""))/i);
 });

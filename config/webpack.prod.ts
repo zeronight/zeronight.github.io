@@ -7,7 +7,7 @@ import UglifyJsWebpackPlugin from 'uglifyjs-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import PrerenderSPAPlugin from 'prerender-spa-plugin';
 import { ArticleBase } from 'types/database';
-import { moveScriptTagToBody } from '../lib/htmlHelper';
+import { moveScriptTagToBody, setScriptAttributes } from '../lib/htmlHelper';
 import baseConfig, { apiDir, projectDir, distDir } from './webpack.base';
 
 const { PuppeteerRenderer } = PrerenderSPAPlugin;
@@ -49,6 +49,7 @@ const config: webpack.Configuration = merge(baseConfig, {
       }),
       postProcess(route: { html: string }) {
         route.html = moveScriptTagToBody(route.html);
+        route.html = setScriptAttributes(route.html, { defer: true, async: true });
         return route;
       },
     }),
