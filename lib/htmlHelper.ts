@@ -27,11 +27,9 @@ export function moveScriptTagToBody(html: string): string {
 
 type MutableScriptKey = 'type' | 'defer' | 'async';
 type MutableScriptAttributes = Partial<Pick<HTMLScriptElement, MutableScriptKey>>;
-type MutableScriptAtttrbutesToSet = Partial<Record<keyof MutableScriptAttributes, string>>;
 
 type MSK = MutableScriptKey;
 type MSA = MutableScriptAttributes;
-type MSATS = MutableScriptAtttrbutesToSet;
 
 function setAttribute(script: HTMLScriptElement, key: MSK, value: MSA[MSK]) {
   if (typeof value === 'string') {
