@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prebuild": "npm run clean",
     "build": "webpack --config config/webpack.prod.ts",
     "start": "webpack-dev-server --config config/webpack.dev.ts",
     "lint": "tslint --project tsconfig.json",
