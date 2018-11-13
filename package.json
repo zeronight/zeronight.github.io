@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "webpack --config config/webpack.prod.ts",
-    "start": "webpack-dev-server --config config/webpack.dev.ts",
+    "build": "NODE_ENV=production webpack --config config/webpack.prod.ts",
+    "start": "NODE_ENV=development webpack-dev-server --config config/webpack.dev.ts",
     "lint": "tslint --project tsconfig.json",
     "clean": "rm -rf index.html dist articles",
     "database": "ts-node ./scripts/database.ts",
