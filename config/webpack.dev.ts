@@ -3,6 +3,8 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
 
 const config: webpack.Configuration = merge(baseConfig, {
+  devtool: 'cheap-source-map',
+
   mode: 'development',
 
   module: {
