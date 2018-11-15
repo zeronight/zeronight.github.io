@@ -9,7 +9,7 @@
   "rules": {
     "no-implicit-dependencies": [true, "dev", ["types"]],
     "quotemark": [true, "single", "jsx-double"],
-    "no-submodule-imports": [true, "types", "react-syntax-highlighter"],
+    "no-submodule-imports": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "interface-name": false
