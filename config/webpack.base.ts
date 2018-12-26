@@ -28,10 +28,7 @@ const config: webpack.Configuration = {
       {
         test: /\.ts(x?)$/,
         use: {
-          loader: 'ts-loader',
-          options: {
-            configFile: 'src/tsconfig.json',
-          },
+          loader: 'babel-loader',
         },
       },
     ],

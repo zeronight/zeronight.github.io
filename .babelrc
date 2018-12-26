@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["@babel/preset-react", { "useBuiltIns": true }]
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    ["@babel/plugin-transform-typescript", { "isTSX": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+  ]
+}
