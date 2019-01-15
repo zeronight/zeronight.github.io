@@ -17,6 +17,8 @@ const config: webpack.Configuration = merge(baseConfig, {
   },
 
   devServer: {
+    port: 8080,
+    host: 'localhost.github.io',
     historyApiFallback: true,
   },
 });
