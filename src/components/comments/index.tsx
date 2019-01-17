@@ -1,43 +1,23 @@
-import React, { PureComponent } from 'react';
-import Gitalk from 'gitalk';
-import { Article } from 'types/database';
+import React from 'react';
+import Gitalk from 'gitalk/dist/gitalk-component';
 import gitalkBaseConfig from '../../constants/gitalk.config';
 
 import 'gitalk/dist/gitalk.css';
 
 interface Props {
-  article: Article;
+  id: string;
 }
 
-class Comments extends PureComponent<Props> {
-  private container = React.createRef<HTMLDivElement>();
+function Comments(props: Props) {
+  const { id } = props;
 
-  public componentDidMount() {
-    this.renderComments();
-  }
+  const options = {
+    ...gitalkBaseConfig,
+    id,
+    title: id,
+  };
 
-  public componentDidUpdate(preProps: Props) {
-    if (preProps.article.route !== this.props.article.route) {
-      this.renderComments();
-    }
-  }
-
-  public render() {
-    return (
-      <div ref={this.container} />
-    );
-  }
-
-  private renderComments() {
-    const { article } = this.props;
-    const gitalk = new Gitalk({
-      ...gitalkBaseConfig,
-      id: article.route,
-      title: article.route,
-    });
-
-    gitalk.render(this.container.current);
-  }
+  return <Gitalk key={id} options={options} />;
 }
 
-export default Comments;
+export default React.memo(Comments);

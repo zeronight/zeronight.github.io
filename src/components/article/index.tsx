@@ -30,7 +30,7 @@ const ArticleList: StatelessComponent<ArticleProps> = ({ article }) => {
         />
       </article>
       <Suspense fallback={<div/>}>
-        <Comments article={article} />
+        <Comments id={article.route} />
       </Suspense>
     </Fragment>
   );

@@ -4,5 +4,5 @@ declare const process: {
   }
 }
 
-declare module 'gitalk';
+declare module 'gitalk/dist/gitalk-component';
 declare module 'gitalk/dist/gitalk.css';
