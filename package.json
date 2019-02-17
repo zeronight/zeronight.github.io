@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "npm run clean",
+    "postinstall": "ts-node scripts/hotFixPrerenderer.ts",
     "build": "NODE_ENV=production webpack --config config/webpack.prod.ts",
     "start": "NODE_ENV=development webpack-dev-server --config config/webpack.dev.ts",
     "lint": "tslint --project tsconfig.json",
