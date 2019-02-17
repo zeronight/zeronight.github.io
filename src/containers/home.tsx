@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArticleBase } from 'types/database';
 import ArticleList from '../components/article-list';
 import fetchJson from '../lib/fetchJson';
 
-let defaultArticles: ArticleBase[];
+let defaultArticles: ArticleBase[] = [];
 
 const fetchArticles = () => fetchJson('/api/articles') as Promise<ArticleBase[]>;
 
@@ -11,36 +11,17 @@ export const preLoadData = async () => {
   defaultArticles = await fetchArticles();
 };
 
-interface State {
-  articles: ArticleBase[];
-}
+function Home() {
+  const [articles, setArticles] = useState(defaultArticles || []);
 
-class Home extends PureComponent<{}, State> {
-  constructor(props: {}) {
-    super(props);
-
-    this.state = {
-      articles: defaultArticles || [],
-    };
-  }
-
-  public componentDidMount() {
-    if (!defaultArticles) {
-      this.fetchArticles();
+  useEffect(() => {
+    if (articles) {
+      return;
     }
-  }
+    fetchArticles().then(res => setArticles(res))
+  }, []);
 
-  public render() {
-    const { articles } = this.state;
-
-    return <ArticleList articles={articles}/>;
-  }
-
-  private async fetchArticles() {
-    const articles = await fetchArticles();
-
-    this.setState({ articles });
-  }
+  return <ArticleList articles={articles}/>;
 }
 
 export default Home;

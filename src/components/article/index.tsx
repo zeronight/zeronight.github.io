@@ -2,7 +2,7 @@
 import React, { StatelessComponent, Fragment, Suspense, lazy } from 'react';
 import Markdown from 'react-markdown';
 import { format } from 'date-fns';
-import { Article } from 'types/database';
+import { Article as ArticleModel } from 'types/database';
 import CodeBlock from '../code-block';
 
 import './style.css';
@@ -11,10 +11,10 @@ import 'github-markdown-css';
 const Comments = lazy(() => import(/* webpackChunkName: "comment" */'../comments'));
 
 interface ArticleProps {
-  article: Article;
+  article: ArticleModel;
 }
 
-const ArticleList: StatelessComponent<ArticleProps> = ({ article }) => {
+const Article: StatelessComponent<ArticleProps> = ({ article }) => {
   return (
     <Fragment>
       <article className="article">
@@ -36,4 +36,4 @@ const ArticleList: StatelessComponent<ArticleProps> = ({ article }) => {
   );
 };
 
-export default ArticleList;
+export default Article;
