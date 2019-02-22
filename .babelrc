@@ -6,5 +6,10 @@
     "@babel/plugin-syntax-dynamic-import",
     ["@babel/plugin-transform-typescript", { "isTSX": true }],
     ["@babel/plugin-proposal-class-properties", { "loose": true }]
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["@babel/plugin-transform-modules-commonjs"]
+    }
+  }
 }
