@@ -7,12 +7,10 @@ export interface CodeBlockProps {
   language?: string;
 }
 
-const CodeBlock: StatelessComponent<CodeBlockProps> = ({ value, language }) => {
-  return (
-    <SyntaxHighlighter language={language} style={github}>
-      {value}
-    </SyntaxHighlighter>
-  );
-};
+const CodeBlock: StatelessComponent<CodeBlockProps> = ({ value, language }) => (
+  <SyntaxHighlighter language={language} style={github}>
+    {value}
+  </SyntaxHighlighter>
+);
 
 export default CodeBlock;

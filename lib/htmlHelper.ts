@@ -5,7 +5,7 @@ export function removeScriptTag(html: string): string {
 
   const scriptNodes = [...dom.window.document.querySelectorAll('script')];
 
-  scriptNodes.forEach((s) => (s.parentNode as Node).removeChild(s));
+  scriptNodes.forEach(s => (s.parentNode as Node).removeChild(s));
 
   return dom.serialize();
 }
@@ -13,13 +13,12 @@ export function removeScriptTag(html: string): string {
 export function moveScriptTagToBody(html: string): string {
   const dom = new JSDOM(html);
 
-  const head = dom.window.document.head;
-  const body = dom.window.document.body;
+  const { head, body } = dom.window.document;
 
   if (head && body) {
     const scriptNodes = [...head.querySelectorAll('script')];
 
-    scriptNodes.forEach((s) => body.appendChild((s.parentNode as Node).removeChild(s)));
+    scriptNodes.forEach(s => body.appendChild((s.parentNode as Node).removeChild(s)));
   }
 
   return dom.serialize();
@@ -48,8 +47,8 @@ export function setScriptAttributes(html: string, attributes: MSA) {
   const attributesKeys = Object.keys(attributes) as MSK[];
 
   scriptNodes
-    .filter((s) => s.src !== undefined && s.src !== '')
-    .forEach((s) => attributesKeys.forEach((k) => setAttribute(s, k, attributes[k])));
+    .filter(s => s.src !== undefined && s.src !== '')
+    .forEach(s => attributesKeys.forEach(k => setAttribute(s, k, attributes[k])));
 
   return dom.serialize();
 }

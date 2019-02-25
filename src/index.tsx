@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import getRouter from './router';
 
 async function main() {
-  const router = await getRouter(location.pathname);
+  const router = await getRouter(window.location.pathname);
   const container = document.getElementById('app');
 
   if (process.env.NODE_ENV === 'development') {

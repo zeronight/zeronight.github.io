@@ -34,7 +34,10 @@ function getRoutes(): RouteConfig[] {
   ];
 }
 
-async function updateRoutesWithPreLoad(routes: RouteConfig[], currentPath: string): Promise<RouteProps[]> {
+async function updateRoutesWithPreLoad(
+  routes: RouteConfig[],
+  currentPath: string,
+): Promise<RouteProps[]> {
   return Promise.all(routes.map(async (route) => {
     const routeMath = matchPath(currentPath, route);
 
@@ -58,7 +61,7 @@ async function getRouter(path: string): Promise<ReactElement<any>> {
   const routesWithPreLoad = await updateRoutesWithPreLoad(routes, path);
 
   const routeElements = routesWithPreLoad.map(
-    (config) => <Route key={config.path as string} {...config} />,
+    config => <Route key={config.path as string} {...config} />,
   );
 
   return (

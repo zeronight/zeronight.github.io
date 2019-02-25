@@ -18,7 +18,7 @@ function Home() {
     if (articles) {
       return;
     }
-    fetchArticles().then(res => setArticles(res))
+    fetchArticles().then(res => setArticles(res));
   }, []);
 
   return <ArticleList articles={articles}/>;

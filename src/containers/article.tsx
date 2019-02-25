@@ -3,6 +3,7 @@ import { RouteComponentProps, match } from 'react-router-dom';
 import { Article as ArticleModel } from 'types/database';
 import Article from '../components/article';
 import fetchJson from '../lib/fetchJson';
+
 interface RouteParams {
   article: string;
 }

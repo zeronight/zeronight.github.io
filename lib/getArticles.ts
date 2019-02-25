@@ -27,8 +27,8 @@ function getArticle(dir: string): Article {
 function getArticles(markdownDir: string): Article[] {
   return (
     fs.readdirSync(markdownDir)
-      .map((name) => path.resolve(markdownDir, name))
-      .filter((dir) => fs.statSync(dir).isDirectory())
+      .map(name => path.resolve(markdownDir, name))
+      .filter(dir => fs.statSync(dir).isDirectory())
       .map(getArticle)
   );
 }

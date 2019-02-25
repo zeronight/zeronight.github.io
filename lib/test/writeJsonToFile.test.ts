@@ -16,10 +16,10 @@ afterAll(() => fsp.rmdir(tempDir));
 const data = {
   'empty-object': {},
   'normal-object': { a: 1, b: 'x', c: true, d: null, f: undefined },
-  'number': 0,
-  'string': '',
-  'boolean': false,
-  'null': null,
+  number: 0,
+  string: '',
+  boolean: false,
+  null: null,
 };
 
 it('should works', async () => {

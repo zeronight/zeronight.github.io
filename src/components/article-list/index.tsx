@@ -10,7 +10,7 @@ interface ArticleListProps {
 }
 
 const ArticleList: StatelessComponent<ArticleListProps> = ({ articles }) => {
-  const articleList = articles.map(({title, tags, date, route}) => (
+  const articleList = articles.map(({ title, tags, date, route }) => (
     <Link key={title} to={`/articles/${route}`} className="articleList_item">
       <h2 className="articleList_title">{title}</h2>
       <div className="articleList_meta">

@@ -10,7 +10,7 @@ const buildArticlesApi = async (articles: Article[], basedir: string) => {
 
   await fsp.mkdir(articleDir, { recursive: true });
 
-  const articlePreviews: ArticleBase[] = articles.map((article) => ({
+  const articlePreviews: ArticleBase[] = articles.map(article => ({
     tags: article.tags,
     date: article.date,
     title: article.title,
@@ -18,9 +18,12 @@ const buildArticlesApi = async (articles: Article[], basedir: string) => {
   }));
 
   const writeArticles = () => writeJsonToFile(articlePreviews, path.resolve(basedir, 'articles'));
-  const writeArticle = (article: Article) => writeJsonToFile(article, path.resolve(articleDir, article.route));
+  const writeArticle = (article: Article) => writeJsonToFile(
+    article,
+    path.resolve(articleDir, article.route),
+  );
 
-  return Promise.all([writeArticles(), ...articles.map((a) => writeArticle(a))]);
+  return Promise.all([writeArticles(), ...articles.map(a => writeArticle(a))]);
 };
 
 export default function buildDatabase(database: Database, basedir: string) {

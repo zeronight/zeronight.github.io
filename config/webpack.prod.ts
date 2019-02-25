@@ -48,8 +48,10 @@ const config: webpack.Configuration = merge(baseConfig, {
         renderAfterDocumentEvent: 'app-ready',
       }),
       postProcess(route: { html: string }) {
+        /* eslint-disable no-param-reassign */
         route.html = moveScriptTagToBody(route.html);
         route.html = setScriptAttributes(route.html, { defer: true, async: true });
+        /* eslint-enable no-param-reassign */
         return route;
       },
     }),

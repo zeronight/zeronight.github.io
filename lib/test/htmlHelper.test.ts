@@ -78,8 +78,8 @@ it('moveScriptTagToBody should works', () => {
 });
 
 it('setScriptAttributes should works', () => {
-  const script = `<script src="/path/to/script"></script>`;
-  const inlineScript = `<script>console.log('ok')</script>`;
+  const script = '<script src="/path/to/script"></script>';
+  const inlineScript = '<script>console.log("ok")</script>';
 
   const moduleScript = setScriptAttributes(script, { type: 'module' });
   const asyncScript = setScriptAttributes(script, { async: true });
