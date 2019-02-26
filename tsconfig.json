@@ -7,6 +7,8 @@
     "types": [
       "node",
       "jest",
+      "puppeteer",
+      "jest-environment-puppeteer",
       "webpack-dev-server",
       "global-common",
       "global-node"
