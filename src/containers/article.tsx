@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { RouteComponentProps, match } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { Article as ArticleModel } from 'types/database';
 import Article from '../components/article';
-import fetchJson from '../lib/fetchJson';
+import { getArticle } from '../lib/article';
 
-interface RouteParams {
+export interface RouteParams {
   article: string;
 }
 
-let preLoadArticle: ArticleModel | null = null;
+interface Props extends RouteComponentProps<RouteParams> {
+  preLoadData?: ArticleModel;
+}
 
-const fetchArticle = (name: string) => fetchJson(`/api/article/${name}`) as Promise<ArticleModel>;
+function ArticleContainer(props: Props) {
+  const { match, preLoadData } = props;
+  const { params: { article: articleRoute } } = match;
 
-export const preLoadData = async (x: match<RouteParams>) => {
-  preLoadArticle = await fetchArticle(x.params.article);
-};
-
-function ArticleContainer(props: RouteComponentProps<RouteParams>) {
-  const { match: { params: { article: articleRoute } } } = props;
-  const hasPreLoad = preLoadArticle && preLoadArticle.route === articleRoute;
-
-  const [article, setArticle] = useState(hasPreLoad ? preLoadArticle : null);
+  const [article, setArticle] = useState(
+    preLoadData && preLoadData.route === articleRoute ? preLoadData : null,
+  );
 
   useEffect(() => {
     if (article && article.route === articleRoute) {
       return;
     }
 
-    fetchArticle(articleRoute).then((content) => {
+    getArticle(articleRoute).then((content) => {
       if (content.route === articleRoute) {
         setArticle(content);
       }

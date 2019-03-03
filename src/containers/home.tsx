@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { ArticleBase } from 'types/database';
 import ArticleList from '../components/article-list';
-import fetchJson from '../lib/fetchJson';
+import { getArticles } from '../lib/article';
 
-let defaultArticles: ArticleBase[] = [];
+interface Props {
+  preLoadData?: ArticleBase[];
+}
 
-const fetchArticles = () => fetchJson('/api/articles') as Promise<ArticleBase[]>;
-
-export const preLoadData = async () => {
-  defaultArticles = await fetchArticles();
-};
-
-function Home() {
-  const [articles, setArticles] = useState(defaultArticles || []);
+function Home({ preLoadData }: Props) {
+  const [articles = [], setArticles] = useState(preLoadData);
 
   useEffect(() => {
-    if (articles) {
+    if (preLoadData) {
       return;
     }
-    fetchArticles().then(res => setArticles(res));
+    getArticles().then(res => setArticles(res));
   }, []);
 
   return <ArticleList articles={articles}/>;

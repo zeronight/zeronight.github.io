@@ -1,18 +1,19 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["__JEST_VARS__"] }] */
 interface Window {
   __JEST_VARS__: {
-    HTMLMutated: boolean
-    appReady: boolean
-  }
+    HTMLMutated: boolean;
+    appReady: boolean;
+  };
 }
 
 const pages = [
   {
     name: 'home page',
-    route: '/'
+    route: '/',
   },
   {
     name: 'article page',
-    route: '/articles/property-accessor-of-ecmascript'
+    route: '/articles/property-accessor-of-ecmascript',
   },
 ];
 
@@ -41,7 +42,7 @@ describe('prerender should works', () => {
       document.addEventListener(readyEvent, () => {
         window.__JEST_VARS__.appReady = true;
         Promise.resolve().then(
-          () => observer.disconnect()
+          () => observer.disconnect(),
         );
       });
     });
