@@ -1,9 +1,7 @@
-import fs from 'fs';
+import { promises as fsp } from 'fs';
+import fse from 'fs-extra';
 import path from 'path';
 import Database, { Article, ArticleBase } from 'types/database';
-import writeJsonToFile from './writeJsonToFile';
-
-const fsp = fs.promises;
 
 const buildArticlesApi = async (articles: Article[], basedir: string) => {
   const articleDir = path.resolve(basedir, 'article');
@@ -17,10 +15,10 @@ const buildArticlesApi = async (articles: Article[], basedir: string) => {
     route: article.route,
   }));
 
-  const writeArticles = () => writeJsonToFile(articlePreviews, path.resolve(basedir, 'articles'));
-  const writeArticle = (article: Article) => writeJsonToFile(
-    article,
+  const writeArticles = () => fse.writeJSON(path.resolve(basedir, 'articles'), articlePreviews);
+  const writeArticle = (article: Article) => fse.writeJSON(
     path.resolve(articleDir, article.route),
+    article,
   );
 
   return Promise.all([writeArticles(), ...articles.map(a => writeArticle(a))]);
