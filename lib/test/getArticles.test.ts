@@ -2,31 +2,9 @@ import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
 import getArticles from '../getArticles';
+import articles from './helper/articles';
 
 let articlesDir: string;
-
-const articles = [
-  {
-    title: 'title1',
-    date: '2018-09-24',
-    tags: ['tags1-1', 'tags1-2'],
-    route: 'article1',
-    content: `
-      # article1
-      this is content of article1
-    `,
-  },
-  {
-    title: 'title2',
-    date: '2018-09-25',
-    tags: ['tags2-1', 'tags2-2'],
-    route: 'article2',
-    content: `
-      # article2
-      this is content of article2
-    `,
-  },
-];
 
 beforeAll(async () => {
   articlesDir = await fs.mkdtemp(path.resolve(os.tmpdir(), 'articles'));
@@ -43,11 +21,11 @@ beforeAll(async () => {
 
 afterAll(() => fs.remove(articlesDir));
 
-it('should works', async () => {
-  expect.assertions(3);
-
-  const articlesData = await getArticles(articlesDir);
-  expect(articlesData).toHaveLength(2);
-  expect(articlesData[0]).toEqual(articles[0]);
-  expect(articlesData[1]).toEqual(articles[1]);
+describe('get articles from disk', () => {
+  it('should works', async () => {
+    const articlesData = await getArticles(articlesDir);
+    expect(articlesData).toHaveLength(2);
+    expect(articlesData[0]).toEqual(articles[0]);
+    expect(articlesData[1]).toEqual(articles[1]);
+  });
 });
