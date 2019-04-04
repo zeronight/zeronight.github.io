@@ -1,7 +1,7 @@
 export interface ArticleBase {
   readonly title: string;
   readonly tags: string[];
-  readonly date: Date;
+  readonly date: string;
   readonly route: string;
 }
 export interface Article extends ArticleBase {

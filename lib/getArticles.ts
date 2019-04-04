@@ -19,7 +19,7 @@ function getArticle(dir: string): Article {
     title,
     content,
     tags,
-    date: new Date(date),
+    date,
     route: path.basename(dir),
   };
 }

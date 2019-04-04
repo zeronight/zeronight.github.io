@@ -48,12 +48,6 @@ it('should works', async () => {
 
   const articlesData = await getArticles(articlesDir);
   expect(articlesData).toHaveLength(2);
-  expect(articlesData[0]).toEqual({
-    ...articles[0],
-    date: new Date(articles[0].date),
-  });
-  expect(articlesData[1]).toEqual({
-    ...articles[1],
-    date: new Date(articles[1].date),
-  });
+  expect(articlesData[0]).toEqual(articles[0]);
+  expect(articlesData[1]).toEqual(articles[1]);
 });
