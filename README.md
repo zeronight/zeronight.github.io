@@ -3,3 +3,4 @@
 - [ ] SEO
 - [ ] README
 - [ ] Image CDN
+- [ ] Favicon
