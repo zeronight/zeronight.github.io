@@ -59,11 +59,20 @@ const config: webpack.Configuration = merge(baseConfig, {
 
   optimization: {
     minimizer: [
-      new OptimizeCSSAssetsPlugin(),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorPluginOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }],
+        },
+      } as any),
       new TerserWebpackPlugin({
         cache: true,
         parallel: true,
         sourceMap: false,
+        terserOptions: {
+          output: {
+            comments: false,
+          },
+        },
       }),
     ],
   },
