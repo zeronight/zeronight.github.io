@@ -13,7 +13,7 @@ const App = ({ routes }: { routes: RouteProps[] }) => (
     <Suspense fallback={loading}>
       <Switch>
         {routes.map(
-          route => <Route key={route.path as string} {...route} />,
+          (route) => <Route key={route.path as string} {...route} />,
         )}
       </Switch>
     </Suspense>

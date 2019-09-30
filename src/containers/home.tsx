@@ -14,7 +14,7 @@ function Home({ preLoadData }: Props) {
     if (preLoadData) {
       return;
     }
-    getArticles().then(res => setArticles(res));
+    getArticles().then((res) => setArticles(res));
   }, []);
 
   return <ArticleList articles={articles}/>;

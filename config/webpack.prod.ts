@@ -68,6 +68,7 @@ const config: webpack.Configuration = merge(baseConfig, {
         cache: true,
         parallel: true,
         sourceMap: false,
+        extractComments: false,
         terserOptions: {
           output: {
             comments: false,
