@@ -6,6 +6,9 @@ interface Window {
   };
 }
 
+const port = process.env.TEST_SERVER_PORT ? Number(process.env.TEST_SERVER_PORT) : 8080;
+const host = process.env.TEST_SERVER_HOST ? process.env.TEST_SERVER_HOST : '127.0.0.1';
+
 const pages = [
   {
     name: 'home page',
@@ -50,7 +53,7 @@ describe('prerender should works', () => {
 
   pages.forEach(({ name, route }) => {
     it(name, async () => {
-      await page.goto(`http://127.0.0.1:8080${route}`);
+      await page.goto(`http://${host}:${port}${route}`);
 
       await page.waitFor(() => window.__JEST_VARS__.appReady, { timeout: 10000 });
 
