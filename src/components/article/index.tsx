@@ -19,7 +19,7 @@ const Article: StatelessComponent<ArticleProps> = ({ article }) => (
     <article className="article">
       <h1 className="article_title">{article.title}</h1>
       <div className="article_meta">
-        <span className="article_date">{format(article.date, 'YYYY-MM-DD')}</span>
+        <span className="article_date">{format(new Date(article.date), 'yyyy-MM-dd')}</span>
         <span className="article_tags">{article.tags.join(',')}</span>
       </div>
       <Markdown

@@ -15,7 +15,7 @@ const ArticleList: StatelessComponent<ArticleListProps> = ({ articles }) => {
       <h2 className="articleList_title">{title}</h2>
       <div className="articleList_meta">
         <span className="articleList_tags">{tags.join(',')}</span>
-        <span className="articleList_date">{format(date, 'YYYY-MM-DD')}</span>
+        <span className="articleList_date">{format(new Date(date), 'yyyy-MM-dd')}</span>
       </div>
     </Link>
   ));
