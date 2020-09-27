@@ -1,4 +1,3 @@
-
 import React, { StatelessComponent, Fragment, Suspense, lazy } from 'react';
 import Markdown from 'react-markdown';
 import { format } from 'date-fns';

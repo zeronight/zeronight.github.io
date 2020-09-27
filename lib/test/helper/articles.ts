@@ -1,4 +1,3 @@
-
 import { Article } from 'types/database';
 
 const articles: Article[] = [
